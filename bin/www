@@ -1,28 +1,33 @@
 #!/usr/bin/env node
 
 /**
- * Module dependencies.
+ * 依赖的模块
  */
-
+//是应用
 var app = require('../app');
-var debug = require('debug')('boke:server');
+//日志服务
+var debug = require('debug')('201601blog:server');
+
 var http = require('http');
 
 /**
- * Get port from environment and store in Express.
+ * 从环境变量中获得端口号并且保存在express中
  */
 
 var port = normalizePort(process.env.PORT || '3000');
+//app也可以保存一些变量的值
 app.set('port', port);
 
 /**
- * Create HTTP server.
+ * 创建http服务器
+ *  app 每当有请求到来的时候的回调函数
  */
 
 var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
+ * 在端口号上进行监听
  */
 
 server.listen(port);
@@ -59,8 +64,8 @@ function onError(error) {
   }
 
   var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+      ? 'Pipe ' + port
+      : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -78,13 +83,14 @@ function onError(error) {
 }
 
 /**
- * Event listener for HTTP server "listening" event.
+ * 当监听 成功的时候会调用此回调函数
  */
 
 function onListening() {
-  var addr = server.address();
+  var addr = server.address();//取得服务器的IP地址
   var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+      ? 'pipe ' + addr
+      : 'port ' + addr.port;
+  //输出一行日志显示不显示取决于变量里的DEBUG参数
   debug('Listening on ' + bind);
 }
